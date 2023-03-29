@@ -1,0 +1,33 @@
+---
+- name: Gather OS specific variables
+  ansible.builtin.include_vars: "{{ loop_vars }}"
+  loop: "{{ query('ansible.builtin.first_found', params) }}"
+  vars:
+    params:
+      files:
+        - "{{ ansible_distro }}-{{ ansible_distro_version }}.yml"
+        - "{{ ansible_distro }}-{{ ansible_distro_release }}.yml"
+        - "{{ ansible_distro }}-{{ ansible_distro_major_version }}.yml"
+        - "{{ ansible_distro }}.yml"
+        - "{{ ansible_os_family | lower }}-family.yml"
+        - "{{ ansible_system | lower }}.yml"
+      paths:
+        - "vars"
+      skip: true
+  loop_control:
+    loop_var: loop_vars
+
+- name: "Install packages"
+  ansible.builtin.package:
+    name:
+      - "{{ ansible_package_name }}"
+      - ntp
+
+- name: "Configure apache"
+  ansible.builtin.include_tasks: "apache.yml"
+
+- name: "Configure ntp server"
+  ansible.builtin.include_tasks: "ntp.yml"
+
+- name: "Create apache users"
+  ansible.builtin.include_tasks: "users.yml"

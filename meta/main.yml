@@ -1,0 +1,28 @@
+galaxy_info:
+  role_name: "apache"
+  namespace: "esgi"
+  description: "Install and configure Apache 2"
+  author: "Delibes Bechir"
+  company: "ESGI Paris"
+
+  license: "MPL2"
+
+  min_ansible_version: "2.10"
+
+  galaxy_tags: ['esgi', 'apache', 'delibes']
+
+  platforms:
+    - name: EL
+      versions:
+        - all
+    - name: Amazon
+      versions:
+        - all
+    - name: Debian
+      versions:
+        - all
+    - name: Ubuntu
+      versions:
+        - all
+
+dependencies: []

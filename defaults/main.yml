@@ -1,0 +1,9 @@
+---
+# defaults file for role
+apache_service_enabled: true
+apache_users_to_create: []
+apache_ntp_servers:
+  - time.google.com
+  - time.cloudflare.com
+  - time.windows.com
+  - time.apple.com

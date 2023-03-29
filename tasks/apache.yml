@@ -1,0 +1,4 @@
+---
+- name: "Config apache index files"
+  ansible.builtin.template:
+    

@@ -1,0 +1,3 @@
+---
+# defaults vars for debian family
+apache_package_name: "apache2"
