@@ -9,7 +9,7 @@ def test_users_is_created(host):
         assert host.user(user).exists
 
 
-def test_ntp_is_configured(host):
+def test_ntp_service(host):
     if 'debian' in sys.platform.lower():
         ntp_file = host.file("/etc/ntp.conf")
         assert host.service("ntp").is_running
