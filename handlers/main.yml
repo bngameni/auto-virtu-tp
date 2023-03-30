@@ -8,3 +8,7 @@
   ansible.builtin.systemd:
     name: "ntp"
     state: restarted
+
+- name: "Send failed message"
+  ansible.builtin.fail:
+    msg: "Service is not running"

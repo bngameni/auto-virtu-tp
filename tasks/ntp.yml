@@ -1,0 +1,17 @@
+---
+- name: "Install ntp"
+  ansible.builtin.apt:
+    name: ntp
+
+- name: "Enable ntp service"
+  ansible.builtin.systemd:
+    name: ntp
+    enabled: true
+  when: apache_ntp_service_enabled
+
+- name: "Config ntp"
+  ansible.builtin.template:
+    src: "ntp.conf.j2"
+    dest: "/etc/ntp.conf"
+    mode: '0644'
+  notify: Restart ntp

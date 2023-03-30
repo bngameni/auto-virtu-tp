@@ -2,8 +2,16 @@
 # defaults file for role
 apache_service_enabled: true
 apache_users_to_create: []
+apache_var_www_data: /var/www/html
+
+# configs for ntp servers
 apache_ntp_servers:
   - time.google.com
   - time.cloudflare.com
   - time.windows.com
   - time.apple.com
+apache_ntp_service_enabled: true
+
+# developpers informations
+apache_developpers_group: "Groupe 10"
+apache_developpers_class: "4SRC2"

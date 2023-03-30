@@ -17,17 +17,15 @@
   loop_control:
     loop_var: loop_vars
 
-- name: "Install packages"
-  ansible.builtin.package:
-    name:
-      - "{{ ansible_package_name }}"
-      - ntp
-
 - name: "Configure apache"
   ansible.builtin.include_tasks: "apache.yml"
 
+- name: "Health check of apache"
+  ansible.builtin.include_tasks: "healthcheck.yml"
+
 - name: "Configure ntp server"
   ansible.builtin.include_tasks: "ntp.yml"
+  when: ansible_os_family == 'Debian'
 
 - name: "Create apache users"
   ansible.builtin.include_tasks: "users.yml"
