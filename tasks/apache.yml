@@ -1,13 +1,13 @@
 ---
-- name: "Install package {{ apache_package_name }}"
+- name: "Install package {{ _apache_package_name }}"
   ansible.builtin.package:
     name:
-      - "{{ apache_package_name }}"
+      - "{{ _apache_package_name }}"
       - iptables
 
-- name: "Enable service {{ apache_package_name }}"
+- name: "Enable service {{ _apache_package_name }}"
   ansible.builtin.systemd:
-    name: "{{ apache_package_name }}"
+    name: "{{ _apache_package_name }}"
     enabled: true
   when: apache_service_enabled
 

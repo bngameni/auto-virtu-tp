@@ -1,7 +1,7 @@
 ---
 - name: "Restart apache"
   ansible.builtin.systemd:
-    name: "{{ apache_package_name }}"
+    name: "{{ _apache_package_name }}"
     state: restarted
 
 - name: "Restart ntp"
