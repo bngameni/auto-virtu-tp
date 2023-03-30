@@ -14,14 +14,16 @@
 - name: "Config apache index files"
   ansible.builtin.template:
     src: "index.html.j2"
-    dest: "{{ apache_var_www_data }}/index.html"
+    dest: "{{ apache_web_data }}/index.html"
     mode: "0644"
   notify: Restart apache
 
-- name: "Allow connections on port 80"
+- name: "Flush handlers"
+  ansible.builtin.meta: flush_handlers
+
+- name: "Allow connections on port {{ apache_port }}"
   ansible.builtin.iptables:
     chain: INPUT
     protocol: tcp
-    destination_ports:
-      - "80"
+    destination_ports: "{{ apache_port }}"
     jump: ACCEPT
