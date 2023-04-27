@@ -1,0 +1,12 @@
+---
+- name: "Create users"
+  ansible.builtin.user:
+    name: "{{ item.name }}"
+    password: "{{ item.password }}"
+    createhome: "{{ item.createhome | default(true) }}"
+    shell: "{{ item.shell | default('/bin/bash') }}"
+    comment: "{{ item.comment | default(omit) }}"
+    state: present
+  loop: "{{ apache_users_to_create }}"
+  when: apache_users_to_create | length > 0
+  no_log: true

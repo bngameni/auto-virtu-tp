@@ -1,14 +1,16 @@
 #!/usr/bin/env python
+import sys
 
-import os
-import stat
-import testinfra.utils.ansible_runner
+def test_apache_service_is_running(host):
+    assert host.socket("tcp://0.0.0.0:80").is_listening
 
-testinfra_hosts = testinfra.utils.ansible_runner.AnsibleRunner(
-    os.environ["MOLECULE_INVENTORY_FILE"]
-).get_hosts("all")
+def test_users_is_created(host):
+    for user in ("delibes","del"):
+        assert host.user(user).exists
 
 
-def test_shell(host):
-    command = host.run("sh --version")
-    assert command.rc == 0
+def test_ntp_service(host):
+    if 'debian' in sys.platform.lower():
+        ntp_file = host.file("/etc/ntp.conf")
+        assert host.service("ntp").is_running
+        assert ntp_file.contains("time.google.com")

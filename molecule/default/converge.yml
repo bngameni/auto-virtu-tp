@@ -1,5 +1,11 @@
 ---
 - name: Converge
   hosts: all
+  vars:
+    apache_users_to_create:
+      - name: delibes
+        password: delibes
+      - name: del
+        password: del
   roles:
     - role: esgi.apache

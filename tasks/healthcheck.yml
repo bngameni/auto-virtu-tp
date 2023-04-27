@@ -1,0 +1,17 @@
+---
+- name: "Health check"
+  ansible.builtin.uri:
+    url: "http://localhost:{{ apache_port }}"
+    return_content: true
+  register: _apache_service_status
+  failed_when: false
+
+- name: "Check if heathcheck succeed"
+  ansible.builtin.debug:
+    msg: "The service is running !!"
+  when: _apache_service_status.status is defined and _apache_service_status.status == 200
+
+- name: "Check if errors during healthcheck"
+  ansible.builtin.fail:
+    msg: "The service is not running !!"
+  when: _apache_service_status.status is defined and _apache_service_status.status != 200
