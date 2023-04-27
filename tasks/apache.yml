@@ -4,6 +4,7 @@
     name:
       - "{{ _apache_package_name }}"
       - iptables
+    state: present
 
 - name: "Enable service {{ _apache_package_name }}"
   ansible.builtin.systemd:
@@ -27,3 +28,7 @@
     protocol: tcp
     destination_ports: "{{ apache_port }}"
     jump: ACCEPT
+    action: insert
+    state: present
+  register: _apache_iptables
+  changed_when: _apache_iptables.failed
